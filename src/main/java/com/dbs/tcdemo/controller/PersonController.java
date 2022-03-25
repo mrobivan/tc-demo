@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class PersonController {
@@ -17,12 +18,8 @@ public class PersonController {
 
     @GetMapping("/persons")
     public List<PersonDto> getPersons() {
-        var persons = personService.getAllPersons();
-        List<PersonDto> personsDtoList = new ArrayList<>();
-        for(var person: persons) {
-            var personDto = new PersonDto(person);
-            personsDtoList.add(personDto);
-        }
-        return personsDtoList;
+        return personService.getAllPersons().stream()
+                .map(PersonDto::new)
+                .collect(Collectors.toList());
     }
 }

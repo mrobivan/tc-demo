@@ -12,10 +12,6 @@ public class Person {
     @Column(nullable = false)
     private String name;
 
-    public int getId() {
-        return id;
-    }
-
     public String getName() {
         return name;
     }
