@@ -10,9 +10,12 @@ import java.util.List;
 
 @Service
 public class PersonService {
+
+    // Spring provides implementation of the PersonRepository interface
     @Autowired
     private PersonRepository personRepository;
 
+    // alternative to providing DDL on the classpath
     @PostConstruct
     public void prepareDatabase() {
         personRepository.deleteAll();

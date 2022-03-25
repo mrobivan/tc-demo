@@ -28,5 +28,7 @@ class GroovyTcRedisBackedCacheTest extends Specification {
 
         then:
         retrieved == "example"
+
+        print(redis.getLogs())
     }
 }

@@ -6,6 +6,7 @@ public class RedisBackedCache {
 
     private final Jedis jedis;
 
+    // presumes that redisHost and portNumber are for running external redis instance
     public RedisBackedCache(String redisHost, int portNumber) {
         this.jedis = new Jedis(redisHost, portNumber);
     }

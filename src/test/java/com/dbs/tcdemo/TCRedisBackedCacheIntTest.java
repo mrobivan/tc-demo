@@ -2,6 +2,7 @@ package com.dbs.tcdemo;
 
 import com.dbs.tcdemo.cache.RedisBackedCache;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.junit.jupiter.Container;
@@ -14,8 +15,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TCRedisBackedCacheIntTest {
     private RedisBackedCache underTest;
 
+    // add 'static' to convert from restarted to shared container
     @Container
-    GenericContainer redis = new GenericContainer(DockerImageName.parse("redis:5.0.3-alpine"))
+    private final GenericContainer<?> redis = new GenericContainer(DockerImageName.parse("redis:5.0.3-alpine"))
             .withExposedPorts(6379);
 
 
@@ -29,9 +31,17 @@ public class TCRedisBackedCacheIntTest {
     }
 
     @Test
-    public void testSimplePutAndGet() {
+    @DisplayName("test simple put and get")
+    public void t1() {  //JUnit5 orders tests
         underTest.set("test", "example");
 
+        String retrieved = underTest.get("test");
+        assertEquals("example", retrieved);
+    }
+
+    @Test
+    @DisplayName("test unshared container")
+    public void t2() { //JUnit5 orders tests
         String retrieved = underTest.get("test");
         assertEquals("example", retrieved);
     }
