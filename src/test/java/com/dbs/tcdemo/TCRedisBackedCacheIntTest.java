@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TCRedisBackedCacheIntTest {
     private RedisBackedCache underTest;
 
-    // add 'static' to convert from restarted to shared container
+    // add 'static' to convert from restarted to shared container and fix test t2
     @Container
     private final GenericContainer<?> redis = new GenericContainer(DockerImageName.parse("redis:5.0.3-alpine"))
             .withExposedPorts(6379);
